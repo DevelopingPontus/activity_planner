@@ -7,8 +7,8 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WeatherApiDto {
-    
+public class WeatherDto {
+
     private Location location;
     private Current current;
     private Error error;
@@ -26,8 +26,6 @@ public class WeatherApiDto {
     public static class Location {
         private String name;
         private String country;
-        private double lat;
-        private double lon;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -35,14 +33,19 @@ public class WeatherApiDto {
     public static class Current {
         @JsonProperty("temp_c")
         private double tempC;
-        @JsonProperty("temp_f")
-        private double tempF;
         private Condition condition;
         private int humidity;
         @JsonProperty("wind_kph")
         private double windKph;
-        @JsonProperty("is_day")
-        private int isDay;
+        @JsonProperty("feelslike_c")
+        private double feelsLikeC;
+        private int cloud;
+        @JsonProperty("heatindex_c")
+        private double heatIndex;
+        @JsonProperty("uv")
+        private double uv;
+        private int chance_of_rain;
+        private int chance_of_snow;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
