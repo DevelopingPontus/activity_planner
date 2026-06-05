@@ -1,34 +1,26 @@
 package chasky.activity_planner.feature.recommendation;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.server.ServerResponse;
 
-import chasky.activity_planner.feature.weather_api.WeatherDto;
+import chasky.activity_planner.feature.activity.ActivitiesDTO;
+import jakarta.validation.constraints.NotBlank;
 import reactor.core.publisher.Mono;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/recommendations")
 public class RecommendationController {
-    @Autowired
     private RecommendationService recommendationService;
 
-    // @PostMapping("/{city")
-    // public RecommendationDTO toGetRecommendedActivity(@RequestBody @PathVariable
-    // String city) {
-    // return recommendationService.getRecommendation(city);
-    // }
+    public RecommendationController(RecommendationService recommendationService) {
+        this.recommendationService = recommendationService;
+    }
 
-    @GetMapping("{city}")
-    public Mono<WeatherDto> toGetRecommendedActivity(@RequestBody @PathVariable String city) {
-        System.out.println(city);
+    @GetMapping
+    public Mono<ActivitiesDTO> toGetRecommendedActivity(@RequestParam(value = "city", required = true) @NotBlank String city) {
         return recommendationService.getRecommendation(city);
     }
 

@@ -14,11 +14,10 @@ public class ActivityService {
     @Value("${activity.api.key}")
     private String apiKey;
 
-    public Mono<ActivityDTO> getActivity(String city) {
+    public Mono<ActivitiesDTO> getActivity(String location, String category) {
         String url = String.format(
-                "http://api.weatherapi.com/v1/current.json?key=%s&q=%s&aqi=no",
-                apiKey, city);
+                    "https://api.geoapify.com/v2/places?categories=%s&bias=circle:%s,1500&limit=20&apiKey=%s",
+               category, location, apiKey);
         return activityClient.getActivity(url);
     }
-
 }

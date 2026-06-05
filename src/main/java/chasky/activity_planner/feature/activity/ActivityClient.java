@@ -13,7 +13,7 @@ public class ActivityClient {
         this.webClient = builder.build();
     }
 
-    public Mono<ActivityDTO> getActivity(String url) {
-        return webClient.get().uri(url).retrieve().bodyToMono(ActivityDTO.class);
+    public Mono<ActivitiesDTO> getActivity(String url) {
+        return webClient.get().uri(url).retrieve().bodyToMono(ActivitiesDTO.class);
     }
 }
